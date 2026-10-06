@@ -1,9 +1,5 @@
 # THỰC HÀNH: LẬP TRÌNH PYTHON VỚI GIAO THỨC AMQP
 
-Dự án này minh họa cách sử dụng RabbitMQ làm Message Broker để truyền tải và xử lý các thông điệp cảnh báo (`warning`, `critical`) giữa Producer và các Consumer thông qua giao thức AMQP trong Python.
-
----
-
 ## Broker Sử Dụng
 
 - **Message Broker:** [RabbitMQ](https://www.rabbitmq.com/)
