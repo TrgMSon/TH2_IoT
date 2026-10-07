@@ -8,6 +8,73 @@
 
 ---
 
+## Bài 2. Mô phỏng cảm biến IoT gửi dữ liệu môi trường
+
+### 1. Giới thiệu
+Mô phỏng thiết bị IoT gửi telemetry qua AMQP.
+- **`sensor_producer_bai2.py`**: là cảm biến gửi dữ liệu nhiệt độ, độ ẩm mỗi 3 giây.
+- **`monitor_consumer_bai2.py`**: là dịch vụ lắng nghe, tiếp nhận dữ liệu từ sensor và in ra thông tin nhận được và cảnh báo (nếu có).
+
+### 2. Cách chạy chương trình
+
+### Bước 1: Khởi động dịch vụ RabbitMQ
+
+Mở **Command Prompt (CMD)**
+```cmd
+   docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+```
+Xác minh container đang chạy:
+```
+docker ps
+```
+*Nếu thấy container rabbitmq có trạng thái Up, dịch vụ đã sẵn sàng hoạt động.*
+
+**Nếu chưa có docker thì cài đặt [Docker](https://www.docker.com/products/docker-desktop/)**
+
+### Bước 2: Chạy các chương trình
+Sau khi RabbitMQ khởi động thành công, mở 2 cửa sổ Terminal/CMD riêng biệt và tiến hành chạy lần lượt 2 file theo thứ tự:
+
+**Khởi chạy Monitor Consumer:**
+```
+python monitor_consumer_bai2.py
+```
+
+**Khởi chạy Sensor Producer:**
+```
+python sensor_producer_bai2.py
+```
+
+### 3. kết quả đạt được
+
+**sensor_producer_bai2.py**
+```
+[x] Da gui tu [sensor03]: {"device_id": "sensor03", "temperature": 22.6, "humidity": 72.0, "timestamp": "2026-10-07 10:22:05"}
+[x] Da gui tu [sensor01]: {"device_id": "sensor01", "temperature": 43.0, "humidity": 69.9, "timestamp": "2026-10-07 10:22:08"}
+[x] Da gui tu [sensor02]: {"device_id": "sensor02", "temperature": 36.9, "humidity": 23.0, "timestamp": "2026-10-07 10:22:11"}
+```
+**monitor_consumer_bai3.py**
+```
+===================================
+Device:      sensor03
+Timestamp:   2026-10-07 10:22:05
+Temperature: 22.6 °C
+Humidity:    72.0 %
+===================================
+Device:      sensor01
+Timestamp:   2026-10-07 10:22:08
+Temperature: 43.0 °C
+Humidity:    69.9 %
+>>> CANH BAO: Nhiet do cao!
+===================================
+Device:      sensor02
+Timestamp:   2026-10-07 10:22:11
+Temperature: 36.9 °C
+Humidity:    23.0 %
+>>> CANH BAO: Nhiet do cao!
+>>> CANH BAO: Do am thap!
+```
+
+---
 ## Bài 3. Mô phỏng hệ thống điều phối cảnh báo IoT với exchange
 
 ### 1. Giới thiệu
