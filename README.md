@@ -8,6 +8,55 @@
 
 ---
 
+## Bài 1. Gửi và nhận message cơ bản qua queue
+
+### 1. Giới thiệu
+Làm quen với mô hình producer → queue → consumer trong AMQP.
+- **`producer_bai1.py`**: kết nối tới RabbitMQ broker và gửi các message chứa thông tin sinh viên vào queue `iot_lab_queue`.
+- **`consumer_bai1.py`**: lắng nghe queue `iot_lab_queue`, tiếp nhận message và in ra nội dung cùng thời điểm nhận.
+
+### 2. Cách chạy chương trình
+Sau khi RabbitMQ khởi động thành công, mở 2 cửa sổ Terminal/CMD riêng biệt và tiến hành chạy lần lượt 2 file theo thứ tự:
+
+**Khởi chạy Consumer (lắng nghe trước):**
+```cmd
+python consumer_bai1.py
+```
+
+**Khởi chạy Producer (để phát message):**
+```cmd
+python producer_bai1.py
+```
+
+### 3. Kết quả đạt được
+
+**producer_bai1.py**
+```text
+[*] Ket noi thanh cong toi RabbitMQ broker (Queue: 'iot_lab_queue').
+[*] Bat dau gui message (nhan Ctrl+C de dung)...
+
+[x] [13:30:11] Da gui message #1: Xin chao tu ung dung Python AMQP - B23DCCN768 - Lang Viet Thanh
+[x] [13:30:14] Da gui message #2: Xin chao tu ung dung Python AMQP - B23DCCN768 - Lang Viet Thanh
+[x] [13:30:17] Da gui message #3: Xin chao tu ung dung Python AMQP - B23DCCN768 - Lang Viet Thanh
+```
+
+**consumer_bai1.py**
+```text
+[*] Dang lang nghe tren queue 'iot_lab_queue'. Nhan Ctrl+C de thoat.
+
+Da nhan message: Xin chao tu ung dung Python AMQP - B23DCCN768 - Lang Viet Thanh
+Thoi gian nhan: 13:30:11
+--------------------------------------------------
+Da nhan message: Xin chao tu ung dung Python AMQP - B23DCCN768 - Lang Viet Thanh
+Thoi gian nhan: 13:30:14
+--------------------------------------------------
+Da nhan message: Xin chao tu ung dung Python AMQP - B23DCCN768 - Lang Viet Thanh
+Thoi gian nhan: 13:30:17
+--------------------------------------------------
+```
+
+---
+
 ## Bài 2. Mô phỏng cảm biến IoT gửi dữ liệu môi trường
 
 ### 1. Giới thiệu
